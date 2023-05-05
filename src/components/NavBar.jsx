@@ -27,6 +27,7 @@ const NavBar = () => {
 						<div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
 							<NavItem path="/home" text="Home" />
 							<NavItem path="/myposts" text="My Posts" />
+							<NavItem path="/user/subscribers" text="My Posts" />
 						</div>
 					</div>
 					<div className="flex">

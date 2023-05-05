@@ -6,6 +6,7 @@ import Register from "pages/auth/Register";
 import Home from "pages/Home";
 import MyPosts from "pages/MyPosts";
 import PostCreate from "pages/PostCreate";
+import Subscribers from "pages/Subscribers";
 
 const router = createBrowserRouter([
 	{
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
 			{
 				path: "/post/create",
 				element: <PostCreate />
+			},
+			{
+				path: "/user/subscribers",
+				element: <Subscribers />
 			}
 		]
 	},
