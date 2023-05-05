@@ -4,6 +4,7 @@ import GuestLayout from "layouts/GuestLayout";
 import Login from "pages/auth/Login";
 import Register from "pages/auth/Register";
 import Home from "pages/Home";
+import MyPosts from "pages/MyPosts";
 
 const router = createBrowserRouter([
 	{
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
 			{
 				path: "/home",
 				element: <Home />
+			},
+			{
+				path: "/myposts",
+				element: <MyPosts />
 			}
 		]
 	},
