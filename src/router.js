@@ -5,6 +5,7 @@ import Login from "pages/auth/Login";
 import Register from "pages/auth/Register";
 import Home from "pages/Home";
 import MyPosts from "pages/MyPosts";
+import PostCreate from "pages/PostCreate";
 
 const router = createBrowserRouter([
 	{
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
 			{
 				path: "/myposts",
 				element: <MyPosts />
+			},
+			{
+				path: "/post/create",
+				element: <PostCreate />
 			}
 		]
 	},
