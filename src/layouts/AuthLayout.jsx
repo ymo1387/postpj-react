@@ -1,3 +1,4 @@
+import NavBar from "components/NavBar";
 import Cookies from "js-cookie";
 import { Navigate, Outlet } from "react-router";
 
@@ -6,5 +7,12 @@ export default function AuthLayout() {
 	if (token === undefined) {
 		return <Navigate to="/login" />;
 	}
-	return <Outlet />;
+	return (
+		<div className="min-h-screen bg-gray-100">
+			<NavBar />
+			<main>
+				<Outlet />
+			</main>
+		</div>
+	);
 }
