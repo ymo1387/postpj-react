@@ -1,6 +1,35 @@
-import { Link } from "react-router-dom";
+import { axiosClient } from "axios-client";
+import Cookies from "js-cookie";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
+	const navigate = useNavigate();
+
+	const register = (e) => {
+		e.preventDefault();
+		const data = {
+			name: e.target.name.value,
+			email: e.target.email.value,
+			password: e.target.password.value,
+			password_confirmation: e.target.password_confirmation.value,
+		};
+
+		axiosClient
+			.post("v1/auth/register", data)
+			.then((res) => {
+				console.log(res);
+				Cookies.set("access_token", res.data.access_token, {
+					expires: 365,
+				});
+			})
+			.then(() => {
+				navigate("/");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
 	return (
 		<section className="bg-gray-50 dark:bg-gray-900">
 			<div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -9,10 +38,13 @@ export default function Register() {
 						<h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
 							Register
 						</h1>
-						<form className="space-y-4 md:space-y-6" action="#">
+						<form
+							className="space-y-4 md:space-y-6"
+							onSubmit={register}
+						>
 							<div>
 								<label
-									for="name"
+									htmlFor="name"
 									className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
 								>
 									Name
@@ -27,7 +59,7 @@ export default function Register() {
 							</div>
 							<div>
 								<label
-									for="email"
+									htmlFor="email"
 									className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
 								>
 									Email
@@ -42,7 +74,7 @@ export default function Register() {
 							</div>
 							<div>
 								<label
-									for="password"
+									htmlFor="password"
 									className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
 								>
 									Password
@@ -58,7 +90,7 @@ export default function Register() {
 							</div>
 							<div>
 								<label
-									for="password_confirmation"
+									htmlFor="password_confirmation"
 									className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
 								>
 									Confirm Password

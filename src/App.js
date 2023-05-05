@@ -1,7 +1,21 @@
 import logo from './logo.svg';
 import './App.css';
+import { axiosToken } from 'axios-client';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
+  const navigate = useNavigate();
+  const logout = () => {
+    axiosToken
+      .post("v1/auth/logout")
+      .then(res => {
+        Cookies.remove("access_token")
+        navigate("/login")
+      })
+      .catch(err => console.log(err))
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +31,7 @@ function App() {
         >
           Learn React
         </a>
+        <span className='text-red-500 cursor-pointer' onClick={logout}>Logout</span>
       </header>
     </div>
   );

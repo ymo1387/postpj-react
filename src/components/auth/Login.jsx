@@ -1,6 +1,38 @@
-import { Link } from "react-router-dom";
+import { axiosClient } from "axios-client";
+import Cookies from "js-cookie";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
+	const navigate = useNavigate();
+
+	const login = (e) => {
+		e.preventDefault();
+		const data = {
+			email: e.target.email.value,
+			password: e.target.password.value,
+			remember: e.target.remember.checked,
+		};
+
+		const tokenAge = data.remember
+			? 365
+			: new Date(new Date().getTime() + 1 * 1000 * 60 * 60 * 2);
+
+		axiosClient
+			.post("v1/auth/login", data)
+			.then((res) => {
+				console.log(res);
+				Cookies.set("access_token", res.data.access_token, {
+					expires: tokenAge,
+				});
+			})
+			.then(() => {
+				navigate("/");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
 	return (
 		<section className="bg-gray-50 dark:bg-gray-900">
 			<div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -9,10 +41,13 @@ export default function Login() {
 						<h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
 							Log in to your account
 						</h1>
-						<form className="space-y-4 md:space-y-6" action="#">
+						<form
+							className="space-y-4 md:space-y-6"
+							onSubmit={login}
+						>
 							<div>
 								<label
-									for="email"
+									htmlFor="email"
 									className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
 								>
 									Email
@@ -27,7 +62,7 @@ export default function Login() {
 							</div>
 							<div>
 								<label
-									for="password"
+									htmlFor="password"
 									className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
 								>
 									Password
@@ -53,7 +88,7 @@ export default function Login() {
 									</div>
 									<div className="ml-3 text-sm">
 										<label
-											for="remember"
+											htmlFor="remember"
 											className="text-gray-500 dark:text-gray-300 cursor-pointer"
 										>
 											Remember me
