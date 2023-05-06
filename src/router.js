@@ -7,6 +7,7 @@ import Home from "pages/Home";
 import MyPosts from "pages/MyPosts";
 import PostCreate from "pages/PostCreate";
 import Subscribers from "pages/Subscribers";
+import Users from "pages/Users";
 
 const router = createBrowserRouter([
 	{
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
 			{
 				path: "/user/subscribers",
 				element: <Subscribers />
+			},
+			{
+				path: "/users",
+				element: <Users />
 			}
 		]
 	},
